@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
+import { supabase } from "@/integrations/supabase/supabaseClient";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -14,17 +14,14 @@ export default function Login() {
     e.preventDefault();
     setError("");
     try {
-      const res = await fetch("/api/v1/customers/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
       });
-      const data = await res.json();
-      if (res.ok && data.token) {
-        localStorage.setItem("jwt", data.token);
-        navigate("/profile");
+      if (!error) {
+        navigate("/");
       } else {
-        setError(data.message || "Login failed");
+        setError(error.message);
       }
     } catch {
       setError("Login failed");

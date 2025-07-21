@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import { ShoppingCart, Heart, User, Home, List, LogIn, LogOut, LayoutDashboard } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
 
-export default function NavBar() {
+interface NavBarProps {
+  onCartClick?: () => void;
+}
+
+export default function NavBar({ onCartClick }: NavBarProps) {
   const { cart } = useCart();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -28,7 +32,7 @@ export default function NavBar() {
           <Link to="/" className="hover:underline">Products</Link>
           <Link to="/wishlist" className="hover:underline flex items-center gap-1"><Heart className="h-4 w-4" /> Wishlist</Link>
           <Link to="/orders" className="hover:underline flex items-center gap-1"><List className="h-4 w-4" /> Orders</Link>
-          <Link to="/cart" className="hover:underline flex items-center gap-1 relative">
+          <button type="button" onClick={onCartClick} className="hover:underline flex items-center gap-1 relative bg-transparent border-none outline-none cursor-pointer">
             <ShoppingCart className="h-4 w-4" />
             Cart
             {cart.length > 0 && (
@@ -36,7 +40,7 @@ export default function NavBar() {
                 {cart.reduce((sum, item) => sum + item.quantity, 0)}
               </span>
             )}
-          </Link>
+          </button>
         </div>
         <div className="flex items-center gap-4">
           {isLoggedIn ? (

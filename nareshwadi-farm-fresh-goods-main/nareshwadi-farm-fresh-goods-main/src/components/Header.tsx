@@ -1,11 +1,58 @@
-import { ShoppingCart, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { ShoppingCart, Menu, X, User } from "lucide-react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useCart } from "@/hooks/useCart";
-import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/supabaseClient";
 
-export const Header = () => {
+interface HeaderProps {
+  onCartClick?: () => void;
+}
+
+export const Header = ({ onCartClick }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userDrawerOpen, setUserDrawerOpen] = useState(false);
+  const [isProfileModalOpen, setProfileModalOpen] = useState(false);
+  const [profileName, setProfileName] = useState("");
+  const [profilePassword, setProfilePassword] = useState("");
+  const [profileError, setProfileError] = useState("");
+  const [profileSuccess, setProfileSuccess] = useState("");
+  const [user, setUser] = useState(null);
+
+  // Check if user is logged in
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data?.user || null);
+      setProfileName(data?.user?.user_metadata?.name || "");
+    });
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    setUserDrawerOpen(false);
+    window.location.href = "/";
+  };
+
+  const handleProfileUpdate = async (e) => {
+    e.preventDefault();
+    setProfileError("");
+    setProfileSuccess("");
+    try {
+      const updates = {};
+      if (profileName) updates['data'] = { name: profileName };
+      if (profilePassword) updates['password'] = profilePassword;
+      const { error } = await supabase.auth.updateUser(updates);
+      if (error) {
+        setProfileError(error.message);
+      } else {
+        setProfileSuccess("Profile updated successfully");
+        setProfilePassword("");
+      }
+    } catch {
+      setProfileError("Profile update failed");
+    }
+  };
   const { cart } = useCart();
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   return (
@@ -29,14 +76,65 @@ export const Header = () => {
             <a href="#products" className="text-foreground hover:text-primary transition-colors">Products</a>
             <a href="#about" className="text-foreground hover:text-primary transition-colors">About</a>
             <a href="#contact" className="text-foreground hover:text-primary transition-colors">Contact</a>
+            {/* Login button removed as requested */}
           </nav>
 
           {/* Cart & Mobile Menu */}
           <div className="flex items-center space-x-4">
+            {user && (
+              <div className="relative">
+                <button
+                  className="p-2 rounded-full hover:bg-gray-100"
+                  onClick={() => setUserDrawerOpen((v) => !v)}
+                  aria-label="User menu"
+                >
+                  <User className="h-6 w-6" />
+                </button>
+                {userDrawerOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded z-50 p-4">
+                    <Button className="w-full mb-2" onClick={() => setProfileModalOpen(true)}>
+                      My Profile
+                    </Button>
+                    <Button className="w-full" variant="destructive" onClick={handleLogout}>
+                      Logout
+                    </Button>
+                  </div>
+                )}
+                {isProfileModalOpen && (
+                  <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded shadow w-full max-w-sm relative">
+                      <button className="absolute top-2 right-2" onClick={() => setProfileModalOpen(false)}>
+                        <X className="h-5 w-5" />
+                      </button>
+                      <h2 className="text-xl font-bold mb-4">Edit Profile</h2>
+                      <form onSubmit={handleProfileUpdate}>
+                        <Input
+                          placeholder="Name"
+                          value={profileName}
+                          onChange={e => setProfileName(e.target.value)}
+                          className="mb-2"
+                        />
+                        <Input
+                          type="password"
+                          placeholder="New Password"
+                          value={profilePassword}
+                          onChange={e => setProfilePassword(e.target.value)}
+                          className="mb-2"
+                        />
+                        {profileError && <div className="text-red-500 mb-2">{profileError}</div>}
+                        {profileSuccess && <div className="text-green-500 mb-2">{profileSuccess}</div>}
+                        <Button type="submit" className="w-full">Save Changes</Button>
+                      </form>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
             <div className="relative">
-              <Link
-                to="/cart"
-                className="relative flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:bg-gray-100 transition-colors"
+              <button
+                type="button"
+                onClick={onCartClick}
+                className="relative flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 hover:bg-gray-100 transition-colors bg-transparent border-none outline-none cursor-pointer"
                 aria-label="Open cart"
               >
                 <ShoppingCart className="h-5 w-5" />
@@ -45,8 +143,9 @@ export const Header = () => {
                     {cart.reduce((sum, item) => sum + item.quantity, 0)}
                   </span>
                 )}
-              </Link>
+              </button>
             </div>
+            {/* Login button removed as requested */}
             <Button
               variant="ghost"
               size="icon"

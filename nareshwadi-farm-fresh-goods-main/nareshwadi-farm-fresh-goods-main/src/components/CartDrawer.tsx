@@ -50,9 +50,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50">
-      {/* Overlay */}
+      {/* Left-side semi-transparent overlay */}
       <div
-        className="absolute inset-0 bg-black/30 transition-opacity duration-200"
+        className="absolute left-0 top-0 h-full w-[calc(100%-20rem)] bg-black/30 transition-opacity duration-200"
         onClick={onClose}
         aria-label="Close cart drawer"
       />
