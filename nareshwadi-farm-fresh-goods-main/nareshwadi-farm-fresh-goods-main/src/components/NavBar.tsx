@@ -27,18 +27,19 @@ export default function NavBar({ onCartClick }: NavBarProps) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Check for JWT in local storage for traditional auth
     setIsLoggedIn(!!localStorage.getItem("jwt"));
     // Supabase user state
-    import("@/integrations/supabase/supabaseClient").then(({ supabase }) => {
-      supabase.auth.getUser().then(({ data }) => {
-        setUser(data?.user || null);
-        setProfileName(data?.user?.user_metadata?.name || "");
-      });
+    import("@/integrations/supabase/client").then(({ supabase })=>{
+        supabase.auth.getUser().then(({ data })=>{
+            setUser(data?.user || null);
+            setProfileName(data?.user?.user_metadata?.name || "");
+        });
     });
   }, []);
 
   const handleLogout = async () => {
-    import("@/integrations/supabase/supabaseClient").then(async ({ supabase }) => {
+    import("@/integrations/supabase/client").then(async ({ supabase }) => {
       await supabase.auth.signOut();
       setUser(null);
       setUserDrawerOpen(false);
@@ -50,7 +51,7 @@ export default function NavBar({ onCartClick }: NavBarProps) {
     e.preventDefault();
     setProfileError("");
     setProfileSuccess("");
-    import("@/integrations/supabase/supabaseClient").then(async ({ supabase }) => {
+    import("@/integrations/supabase/client").then(async ({ supabase }) => {
       // Update name if changed
       if (profileName) {
         const { error } = await supabase.auth.updateUser({ data: { name: profileName } });

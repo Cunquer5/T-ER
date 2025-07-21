@@ -17,23 +17,23 @@ const categories = [
 
 const sampleProducts = [
   // Fruits
-  { id: "f1", name: "Mangoes", price: 120, image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80", category: "fruits", description: "Juicy, sweet mangoes from Maharashtra.", isOrganic: false, inStock: true },
-  { id: "f2", name: "Apples", price: 180, image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=400&q=80", category: "fruits", description: "Crisp apples, perfect for snacking.", isOrganic: false, inStock: true },
-  { id: "f3", name: "Bananas", price: 50, image: "https://images.unsplash.com/photo-1574226516831-e1dff420e8f8?auto=format&fit=crop&w=400&q=80", category: "fruits", description: "Fresh bananas from local farms.", isOrganic: false, inStock: true },
-  { id: "f4", name: "Lychee", price: 250, image: "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80", category: "fruits", description: "Seasonal lychee, sweet and juicy.", isOrganic: false, inStock: true, isSeasonal: true },
-  { id: "f5", name: "Jamun", price: 300, image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80", category: "fruits", description: "Seasonal jamun, tangy and nutritious.", isOrganic: false, inStock: true, isSeasonal: true },
+  { id: "f1", name: "Mangoes", price: 120, image: "https://images.unsplash.com/photo-1591073113125-e46713c829ed?auto=format&fit=crop&w=400&q=80", category: "fruits", description: "Juicy, sweet mangoes from Maharashtra.", isOrganic: false, inStock: true },
+  { id: "f2", name: "Apples", price: 180, image: "https://images.unsplash.com/photo-1560806887-1e4cd0b69665?auto=format&fit=crop&w=400&q=80", category: "fruits", description: "Crisp apples, perfect for snacking.", isOrganic: false, inStock: true },
+  { id: "f3", name: "Bananas", price: 50, image: "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=400&q=80", category: "fruits", description: "Fresh bananas from local farms.", isOrganic: false, inStock: true },
+  { id: "f4", name: "Lychee", price: 250, image: "https://images.unsplash.com/photo-1627382219423-5494d187e34c?auto=format&fit=crop&w=400&q=80", category: "fruits", description: "Seasonal lychee, sweet and juicy.", isOrganic: false, inStock: true, isSeasonal: true },
+  { id: "f5", name: "Jamun", price: 300, image: "https://images.unsplash.com/photo-1627382219423-5494d187e34c?auto=format&fit=crop&w=400&q=80", category: "fruits", description: "Seasonal jamun, tangy and nutritious.", isOrganic: false, inStock: true, isSeasonal: true },
   // Vegetables
-  { id: "v1", name: "Potato", price: 30, image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80", category: "vegetables", description: "Fresh potatoes from Nashik.", isOrganic: false, inStock: true },
-  { id: "v2", name: "Onion", price: 35, image: "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80", category: "vegetables", description: "Red onions, staple for Indian cooking.", isOrganic: false, inStock: true },
-  { id: "v3", name: "Tomato", price: 40, image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80", category: "vegetables", description: "Juicy tomatoes, perfect for salads.", isOrganic: false, inStock: true },
+  { id: "v1", name: "Potato", price: 30, image: "https://images.unsplash.com/photo-1590326048384-2a6a8b79b97a?auto=format&fit=crop&w=400&q=80", category: "vegetables", description: "Fresh potatoes from Nashik.", isOrganic: false, inStock: true },
+  { id: "v2", name: "Onion", price: 35, image: "https://images.unsplash.com/photo-1587334237935-66bdee359345?auto=format&fit=crop&w=400&q=80", category: "vegetables", description: "Red onions, staple for Indian cooking.", isOrganic: false, inStock: true },
+  { id: "v3", name: "Tomato", price: 40, image: "https://images.unsplash.com/photo-1582284540020-8acbe03f4924?auto=format&fit=crop&w=400&q=80", category: "vegetables", description: "Juicy tomatoes, perfect for salads.", isOrganic: false, inStock: true },
   // Dairy
-  { id: "d1", name: "Cheese", price: 500, image: "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80", category: "dairy", description: "Fresh cheese, locally made.", isOrganic: false, inStock: true },
-  { id: "d2", name: "Paneer", price: 320, image: "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80", category: "dairy", description: "Soft paneer, perfect for curries.", isOrganic: false, inStock: true },
-  { id: "d3", name: "Milk", price: 60, image: "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80", category: "dairy", description: "Fresh milk, delivered daily.", isOrganic: false, inStock: true, unit: "litre" },
+  { id: "d1", name: "Cheese", price: 500, image: "https://images.unsplash.com/photo-1628013825792-780126b384f5?auto=format&fit=crop&w=400&q=80", category: "dairy", description: "Fresh cheese, locally made.", isOrganic: false, inStock: true },
+  { id: "d2", name: "Paneer", price: 320, image: "https://plus.unsplash.com/premium_photo-1668618482869-63cf106358a9?auto=format&fit=crop&w=400&q=80", category: "dairy", description: "Soft paneer, perfect for curries.", isOrganic: false, inStock: true },
+  { id: "d3", name: "Milk", price: 60, image: "https://images.unsplash.com/photo-1559598467-f8b76c8155d0?auto=format&fit=crop&w=400&q=80", category: "dairy", description: "Fresh milk, delivered daily.", isOrganic: false, inStock: true, unit: "litre" },
   // Grains
-  { id: "g1", name: "Wheat", price: 35, image: "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80", category: "grains", description: "Whole wheat, ground fresh.", isOrganic: false, inStock: true },
-  { id: "g2", name: "Indrayani Rice", price: 120, image: "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80", category: "grains", description: "Indrayani rice, aromatic and soft.", isOrganic: false, inStock: true },
-  { id: "g3", name: "Basmati Rice", price: 180, image: "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80", category: "grains", description: "Premium basmati rice, long grain.", isOrganic: false, inStock: true },
+  { id: "g1", name: "Wheat", price: 35, image: "https://images.unsplash.com/photo-1534952219639-c19053940aa3?auto=format&fit=crop&w=400&q=80", category: "grains", description: "Whole wheat, ground fresh.", isOrganic: false, inStock: true },
+  { id: "g2", name: "Indrayani Rice", price: 120, image: "https://images.unsplash.com/photo-1586201375822-52c67340e4f4?auto=format&fit=crop&w=400&q=80", category: "grains", description: "Indrayani rice, aromatic and soft.", isOrganic: false, inStock: true },
+  { id: "g3", name: "Basmati Rice", price: 180, image: "https://images.unsplash.com/photo-1586201375822-52c67340e4f4?auto=format&fit=crop&w=400&q=80", category: "grains", description: "Premium basmati rice, long grain.", isOrganic: false, inStock: true },
 ];
 
 // Helper to display price unit
