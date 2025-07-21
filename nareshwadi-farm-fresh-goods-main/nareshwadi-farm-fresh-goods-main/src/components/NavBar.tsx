@@ -4,12 +4,29 @@ import { ShoppingCart, Heart, User, List, LogIn, LogOut, LayoutDashboard, X, Eye
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/hooks/useCart";
+import { useSupabaseUser } from "@/lib/useSupabaseUser";
+import { getWishlist } from "@/lib/wishlist";
 
 interface NavBarProps {
   onCartClick?: () => void;
 }
 
 export default function NavBar({ onCartClick }: NavBarProps) {
+  const supabaseUser = useSupabaseUser();
+  const [wishlistCount, setWishlistCount] = useState(0);
+
+  useEffect(() => {
+    async function fetchWishlistCount() {
+      if (supabaseUser) {
+        const wishlist = await getWishlist(supabaseUser.id);
+        setWishlistCount(wishlist.length);
+      } else {
+        const localWishlist = JSON.parse(localStorage.getItem("wishlistProducts") || "[]");
+        setWishlistCount(localWishlist.length);
+      }
+    }
+    fetchWishlistCount();
+  }, [supabaseUser]);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
@@ -148,7 +165,14 @@ export default function NavBar({ onCartClick }: NavBarProps) {
             Contact
           </button>
           {/* User link removed as requested */}
-          <Link to="/wishlist" className="hover:underline flex items-center gap-1"><Heart className="h-4 w-4" /> Wishlist</Link>
+          <Link to="/wishlist" className="hover:underline flex items-center gap-1 relative">
+            <Heart className="h-4 w-4" /> Wishlist
+            {wishlistCount > 0 && (
+              <span className="absolute -top-2 -right-4 bg-leaf-green text-white rounded-full text-xs px-2 py-0.5">
+                {wishlistCount}
+              </span>
+            )}
+          </Link>
           <Link to="/orders" className="hover:underline flex items-center gap-1"><List className="h-4 w-4" /> Orders</Link>
           <button type="button" onClick={onCartClick} className="hover:underline flex items-center gap-1 relative bg-transparent border-none outline-none cursor-pointer">
             <ShoppingCart className="h-4 w-4" />

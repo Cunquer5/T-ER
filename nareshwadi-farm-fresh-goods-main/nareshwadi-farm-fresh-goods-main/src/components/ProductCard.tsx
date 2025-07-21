@@ -15,6 +15,9 @@ interface ProductCardProps {
   isOrganic?: boolean;
   inStock?: boolean;
   onAddToCart?: () => void;
+  onAddToWishlist?: () => void;
+  onRemoveFromWishlist?: () => void;
+  isWishlisted?: boolean;
 }
 
 export const ProductCard = (props: ProductCardProps) => {
@@ -27,28 +30,11 @@ export const ProductCard = (props: ProductCardProps) => {
     description,
     isOrganic = true,
     inStock = true,
-    onAddToCart
+  onAddToCart,
+  onAddToWishlist,
+  onRemoveFromWishlist,
+  isWishlisted = false
   } = props;
-
-  const [wishlisted, setWishlisted] = useState(false);
-
-  useEffect(() => {
-    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
-    setWishlisted(wishlist.includes(id));
-  }, [id]);
-
-  const toggleWishlist = () => {
-    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
-    let updated;
-    if (wishlist.includes(id)) {
-      updated = wishlist.filter((pid: string) => pid !== id);
-      setWishlisted(false);
-    } else {
-      updated = [...wishlist, id];
-      setWishlisted(true);
-    }
-    localStorage.setItem("wishlist", JSON.stringify(updated));
-  };
 
   return (
     <Card className="group hover:shadow-organic transition-all duration-300 hover:-translate-y-1">
@@ -58,19 +44,16 @@ export const ProductCard = (props: ProductCardProps) => {
           alt={name}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
         />
+        <Heart
+          className={`absolute top-2 right-2 h-5 w-5 cursor-pointer ${isWishlisted ? "text-red-500" : "text-gray-300"}`}
+          onClick={isWishlisted ? onRemoveFromWishlist : onAddToWishlist}
+          data-testid="wishlist-heart"
+        />
         {isOrganic && (
           <Badge className="absolute top-2 left-2 bg-leaf-green text-white">
             Organic
           </Badge>
         )}
-        <Button
-          size="icon"
-          variant={wishlisted ? "default" : "ghost"}
-          className="absolute top-2 right-2 bg-white/80 backdrop-blur-sm hover:bg-white"
-          onClick={toggleWishlist}
-        >
-          <Heart className={`h-4 w-4 ${wishlisted ? "text-red-500 fill-red-500" : ""}`} />
-        </Button>
         {!inStock && (
           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
             <span className="text-white font-semibold">Out of Stock</span>
@@ -94,17 +77,31 @@ export const ProductCard = (props: ProductCardProps) => {
           {description}
         </p>
       </CardContent>
-      <CardFooter className="p-4 pt-0">
-        <Button 
-          variant="organic" 
-          size="sm" 
-          className="w-full" 
-          disabled={!inStock}
-          onClick={onAddToCart}
-        >
-          <ShoppingCart className="h-4 w-4 mr-2" />
-          Add to Cart
-        </Button>
+      <CardFooter className="p-4 pt-0 flex flex-col gap-2">
+        <div className="flex gap-2 w-full">
+          <Button 
+            variant="organic" 
+            size="sm" 
+            className="w-full" 
+            disabled={!inStock}
+            onClick={onAddToCart}
+          >
+            <ShoppingCart className="h-4 w-4 mr-2" />
+            Add to Cart
+          </Button>
+        </div>
+        {isWishlisted && (
+          <div className="flex gap-2 w-full">
+            <Button
+              variant="destructive"
+              size="sm"
+              className="w-full"
+              onClick={onRemoveFromWishlist}
+            >
+              Remove from Wishlist
+            </Button>
+          </div>
+        )}
       </CardFooter>
     </Card>
   );
