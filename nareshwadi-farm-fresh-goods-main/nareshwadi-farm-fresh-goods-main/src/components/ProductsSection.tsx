@@ -29,9 +29,7 @@ const sampleProducts = [
   { id: "d2", name: "Paneer", price: 320, image: "https://images.unsplash.com/photo-1722635940350-d1b2e5129379?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", category: "dairy", description: "Soft paneer, perfect for curries.", isOrganic: false, inStock: true },
   { id: "d3", name: "Milk", price: 60, image: "https://images.unsplash.com/photo-1559598467-f8b76c8155d0?auto=format&fit=crop&w=400&q=80", category: "dairy", description: "Fresh milk, delivered daily.", isOrganic: false, inStock: true, unit: "litre" },
   // Grains
-  { id: "g1", name: "Wheat", price: 35, image: "https://images.unsplash.com/photo-1627485937980-221c88ac04f9?q=80&w=2966&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", category: "grains", description: "Whole wheat, ground fresh.", isOrganic: false, inStock: true },
-  { id: "g2", name: "Indrayani Rice", price: 120, image: "https://images.unsplash.com/photo-1586201375822-52c67340e4f4?auto=format&fit=crop&w=400&q=80", category: "grains", description: "Indrayani rice, aromatic and soft.", isOrganic: false, inStock: true },
-  { id: "g3", name: "Basmati Rice", price: 180, image: "https://images.unsplash.com/photo-1586201375822-52c67340e4f4?auto=format&fit=crop&w=400&q=80", category: "grains", description: "Premium basmati rice, long grain.", isOrganic: false, inStock: true },
+  { id: "g1", name: "Wheat", price: 35, image: "https://images.unsplash.com/photo-1627735483792-233bf632619b?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", category: "grains", description: "Whole wheat, ground fresh.", isOrganic: false, inStock: true },
 ];
 // Clean implementation
 export const ProductsSection = () => {
