@@ -2,7 +2,7 @@
 import { Hero } from "@/components/Hero";
 import { ProductsSection } from "@/components/ProductsSection";
 import { AboutSection } from "@/components/AboutSection";
-import { ContactSection } from "@/components/ContactSection";
+import ContactSection from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 import NavBar from "@/components/NavBar";
 import { useState } from "react";

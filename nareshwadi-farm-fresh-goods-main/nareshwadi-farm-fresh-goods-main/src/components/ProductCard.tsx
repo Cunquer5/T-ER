@@ -14,6 +14,7 @@ interface ProductCardProps {
   description: string;
   isOrganic?: boolean;
   inStock?: boolean;
+  unit?: string;
   onAddToCart?: () => void;
   onAddToWishlist?: () => void;
   onRemoveFromWishlist?: () => void;
@@ -30,10 +31,11 @@ export const ProductCard = (props: ProductCardProps) => {
     description,
     isOrganic = true,
     inStock = true,
-  onAddToCart,
-  onAddToWishlist,
-  onRemoveFromWishlist,
-  isWishlisted = false
+    unit,
+    onAddToCart,
+    onAddToWishlist,
+    onRemoveFromWishlist,
+    isWishlisted = false
   } = props;
 
   return (
@@ -70,7 +72,9 @@ export const ProductCard = (props: ProductCardProps) => {
           </div>
           <div className="text-right">
             <p className="font-bold text-lg text-primary">₹{price}</p>
-            <p className="text-xs text-muted-foreground">per kg</p>
+            <p className="text-xs text-muted-foreground">
+              {unit ? `per ${unit}` : 'per kg'}
+            </p>
           </div>
         </div>
         <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
