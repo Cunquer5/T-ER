@@ -3,6 +3,18 @@ import { ChevronRight } from "lucide-react";
 import heroImage from "@/assets/hero-farm.jpg";
 
 export const Hero = () => {
+  const handleShopFreshClick = () => {
+    const section = document.getElementById("products-section");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  const handleLearnMoreClick = () => {
+    const section = document.getElementById("about-section");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -30,12 +42,11 @@ export const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="harvest" size="xl" className="group">
+            <Button variant="harvest" size="xl" className="group" onClick={handleShopFreshClick}>
               Shop Fresh Now
               <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
-            
-            <Button variant="outline" size="xl" className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white hover:text-primary">
+            <Button variant="outline" size="xl" className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white hover:text-primary" onClick={handleLearnMoreClick}>
               Learn More
             </Button>
           </div>
