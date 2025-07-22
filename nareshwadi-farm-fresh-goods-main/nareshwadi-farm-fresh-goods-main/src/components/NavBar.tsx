@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/hooks/useCart";
 import { useSupabaseUser } from "@/lib/useSupabaseUser";
-import { getWishlist } from "@/lib/wishlist";
+import { useWishlist } from "@/hooks/useWishlist";
 
 interface NavBarProps {
   onCartClick?: () => void;
@@ -13,20 +13,7 @@ interface NavBarProps {
 
 export default function NavBar({ onCartClick }: NavBarProps) {
   const supabaseUser = useSupabaseUser();
-  const [wishlistCount, setWishlistCount] = useState(0);
-
-  useEffect(() => {
-    async function fetchWishlistCount() {
-      if (supabaseUser) {
-        const wishlist = await getWishlist(supabaseUser.id);
-        setWishlistCount(wishlist.length);
-      } else {
-        const localWishlist = JSON.parse(localStorage.getItem("wishlistProducts") || "[]");
-        setWishlistCount(localWishlist.length);
-      }
-    }
-    fetchWishlistCount();
-  }, [supabaseUser]);
+  const { wishlist } = useWishlist();
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
@@ -167,9 +154,9 @@ export default function NavBar({ onCartClick }: NavBarProps) {
           {/* User link removed as requested */}
           <Link to="/wishlist" className="hover:underline flex items-center gap-1 relative">
             <Heart className="h-4 w-4" /> Wishlist
-            {wishlistCount > 0 && (
+            {wishlist.length > 0 && (
               <span className="absolute -top-2 -right-4 bg-leaf-green text-white rounded-full text-xs px-2 py-0.5">
-                {wishlistCount}
+                {wishlist.length}
               </span>
             )}
           </Link>
