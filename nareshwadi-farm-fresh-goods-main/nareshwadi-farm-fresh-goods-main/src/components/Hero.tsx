@@ -52,7 +52,7 @@ export const Hero = () => {
           </div>
 
           {/* Stats */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 justify-center text-center">
             <div>
               <div className="text-3xl font-bold text-harvest-gold">50+</div>
               <div className="text-sm text-gray-300">Local Farmers</div>
@@ -64,10 +64,6 @@ export const Hero = () => {
             <div>
               <div className="text-3xl font-bold text-harvest-gold">5K+</div>
               <div className="text-sm text-gray-300">Happy Customers</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-harvest-gold">24hr</div>
-              <div className="text-sm text-gray-300">Fresh Delivery</div>
             </div>
           </div>
         </div>
