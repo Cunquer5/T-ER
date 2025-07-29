@@ -8,6 +8,10 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    allowedHosts: [
+      "groove-norfolk-initiatives-episode.trycloudflare.com",
+      "t-er.onrender.com"
+    ],
     proxy: {
       '/api/v1': {
         target: 'http://localhost:5000',
