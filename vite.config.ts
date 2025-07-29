@@ -10,7 +10,8 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     allowedHosts: [
       "groove-norfolk-initiatives-episode.trycloudflare.com",
-      "t-er.onrender.com"
+      "t-er.onrender.com",
+      "amazing-unicorn-3f7416.netlify.app",
     ],
     proxy: {
       '/api/v1': {
