@@ -121,7 +121,7 @@ export default function NavBar({ onCartClick }: NavBarProps) {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               aria-label="Scroll to top"
             >
-              Nareshwadi
+              FarmFresh
             </button>
           </div>
           <button
