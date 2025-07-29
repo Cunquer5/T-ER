@@ -12,6 +12,7 @@ const categories = [
   { id: "fruits", name: "Fruits" },
   { id: "grains", name: "Grains" },
   { id: "dairy", name: "Dairy" },
+  { id: "eco", name: "Eco Friendly Products" }, // Added new category
 ];
 const sampleProducts = [
   // Fruits
@@ -30,6 +31,8 @@ const sampleProducts = [
   { id: "d3", name: "Milk", price: 60, image: "https://images.unsplash.com/photo-1559598467-f8b76c8155d0?auto=format&fit=crop&w=400&q=80", category: "dairy", description: "Fresh milk, delivered daily.", isOrganic: false, inStock: true, unit: "litre" },
   // Grains
   { id: "g1", name: "Wheat", price: 35, image: "https://images.unsplash.com/photo-1627735483792-233bf632619b?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", category: "grains", description: "Whole wheat, ground fresh.", isOrganic: false, inStock: true },
+  // Eco Friendly Products
+  { id: "eco1", name: "Cow Dung", price: 100, image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80", category: "eco", description: "Pure, sun-dried cow dung, perfect for organic farming, gardening, and traditional uses. Eco-friendly and chemical-free. Price per kg.", isOrganic: true, inStock: true, unit: "kg" },
 ];
 // Clean implementation
 export const ProductsSection = () => {
