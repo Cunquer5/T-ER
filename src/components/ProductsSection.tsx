@@ -5,7 +5,8 @@ import { useWishlist } from "@/hooks/useWishlist";
 import { ProductCard } from "./ProductCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, Filter } from "lucide-react";
+import { Search, Filter, Loader2 } from "lucide-react";
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 const categories = [
   { id: "all", name: "All Products" },
   { id: "vegetables", name: "Vegetables" },
@@ -40,7 +41,7 @@ const sampleProducts = [
   { id: "g8", name: "Nagali", price: 120, image: "https://images.unsplash.com/photo-1534952219639-c19053940aa3?auto=format&fit=crop&w=400&q=80", category: "grains", description: "Traditional Nagali grain, nutritious and healthy.", isOrganic: false, inStock: true },
   
   // Dairy
-  { id: "d1", name: "Milk", price: 110, image: "https://images.unsplash.com/photo-1559598467-f8b76c8155d0?auto=format&fit=crop&w=400&q=80", category: "dairy", description: "Fresh milk, delivered daily.", isOrganic: false, inStock: true, unit: "litre" },
+  { id: "d1", name: "Gir A2 Cow Milk", price: 110, image: "https://images.unsplash.com/photo-1559598467-f8b76c8155d0?auto=format&fit=crop&w=400&q=80", category: "dairy", description: "Fresh Gir A2 Cow Milk, delivered daily. Rich in A2 protein and nutrients, perfect for families seeking natural, healthy milk. Price per litre.", isOrganic: false, inStock: true, unit: "litre" },
   { id: "d2", name: "Ghee", price: 3000, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80", category: "dairy", description: "Pure, clarified butter made from fresh cream. Traditional and aromatic ghee perfect for cooking and religious ceremonies.", isOrganic: true, inStock: true, unit: "kg" },
   { id: "d3", name: "Chaas", price: 40, image: "https://images.unsplash.com/photo-1559598467-f8b76c8155d0?auto=format&fit=crop&w=400&q=80", category: "dairy", description: "Fresh buttermilk, cooling and nutritious.", isOrganic: false, inStock: true, unit: "litre" },
   { id: "d4", name: "Honey", price: 1000, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80", category: "dairy", description: "Pure natural honey, sweet and healthy.", isOrganic: true, inStock: true, unit: "litre" },
@@ -100,34 +101,40 @@ export const ProductsSection = () => {
 		  </p>
 		</div>
 		{/* Search and Filter */}
-		<div className="flex flex-col md:flex-row gap-4 mb-8">
-		  <div className="relative flex-1">
-			<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+		<div className="flex flex-col md:flex-row gap-4 mb-8 items-center">
+		  <div className="relative flex-1 flex items-center">
+			<span className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center">
+			  <Search className="h-5 w-5 text-primary-dark" />
+			</span>
 			<Input
 			  placeholder="Search products..."
 			  value={searchTerm}
 			  onChange={(e) => setSearchTerm(e.target.value)}
-			  className="pl-10"
+			  className="pl-12 border-2 border-primary-dark bg-gradient-to-r from-primary-dark/10 to-primary/20 text-primary-dark focus:border-primary-dark focus:ring-primary/50 shadow-sm"
 			/>
 		  </div>
-		  <div className="flex gap-2 flex-wrap">
-			{categories.map((category) => (
-			  <Button
-				key={category.id}
-				variant={selectedCategory === category.id ? "default" : "outline"}
-				size="sm"
-				onClick={() => setSelectedCategory(category.id)}
-				className="flex items-center gap-2"
-			  >
-				<Filter className="h-4 w-4" />
-				{category.name}
-			  </Button>
-			))}
+		  <div className="flex items-center gap-2 min-w-[220px]">
+			<label htmlFor="category-sort" className="font-medium text-primary-dark whitespace-nowrap">Sort:</label>
+			<Select value={selectedCategory} onValueChange={setSelectedCategory}>
+			  <SelectTrigger className="min-w-[180px] border-2 border-primary-dark bg-gradient-to-r from-primary-dark to-primary text-white font-semibold shadow-md focus:ring-primary/50">
+				<SelectValue placeholder="Select category" />
+			  </SelectTrigger>
+			  <SelectContent>
+				{categories.map((category) => (
+				  <SelectItem key={category.id} value={category.id}>
+					{category.name}
+				  </SelectItem>
+				))}
+			  </SelectContent>
+			</Select>
 		  </div>
 		</div>
 		{/* Products Grid */}
 		{loading && products.length === 0 ? (
-		  <div className="text-center py-12">Loading products...</div>
+		  <div className="flex flex-col items-center justify-center py-12 animate-fade-in">
+			<Loader2 className="h-10 w-10 text-primary-dark animate-spin mb-4" />
+			<span className="text-lg text-primary-dark">Loading products...</span>
+		  </div>
 		) : error ? (
 		  <div className="text-center py-12 text-red-500">{error}</div>
 		) : (
@@ -142,24 +149,26 @@ export const ProductsSection = () => {
 				{cartAlert}
 			  </div>
 			)}
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
 			  {filteredProducts.map((product) => (
-				<ProductCard
-				  key={product.id}
-				  {...product}
-				  onAddToCart={() => {
-					addToCart(product);
-					setCartAlert(`${product.name} added to cart!`);
-					setTimeout(() => setCartAlert("") , 3000);
-				  }}
-				  onAddToWishlist={() => {
-					addToWishlist(product);
-					setWishlistAlert(`${product.name} added to wishlist!`);
-					setTimeout(() => setWishlistAlert("") , 3000);
-				  }}
-				  onRemoveFromWishlist={() => removeFromWishlist(product.id)}
-				  isWishlisted={wishlist.some((item) => item.id === product.id)}
-				/>
+				<div className="transition-transform duration-300 hover:scale-[1.03] hover:shadow-xl rounded-xl">
+				  <ProductCard
+					key={product.id}
+					{...product}
+					onAddToCart={() => {
+					  addToCart(product);
+					  setCartAlert(`${product.name} added to cart!`);
+					  setTimeout(() => setCartAlert("") , 3000);
+					}}
+					onAddToWishlist={() => {
+					  addToWishlist(product);
+					  setWishlistAlert(`${product.name} added to wishlist!`);
+					  setTimeout(() => setWishlistAlert("") , 3000);
+					}}
+					onRemoveFromWishlist={() => removeFromWishlist(product.id)}
+					isWishlisted={wishlist.some((item) => item.id === product.id)}
+				  />
+				</div>
 			  ))}
 			</div>
 			{filteredProducts.length === 0 && (

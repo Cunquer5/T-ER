@@ -29,7 +29,7 @@ const features = [
 
 export const AboutSection = () => {
   return (
-    <section id="about-section" className="py-20 bg-background">
+    <section id="about-section" className="py-20 bg-background animate-fade-in">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
@@ -54,7 +54,7 @@ export const AboutSection = () => {
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {features.map((feature, index) => (
-            <Card key={index} className="text-center hover:shadow-card transition-all duration-300">
+            <Card key={index} className="text-center hover:shadow-card transition-all duration-300 hover:scale-[1.03] rounded-xl">
               <CardContent className="p-6">
                 <div className="mx-auto w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mb-4">
                   <feature.icon className="h-8 w-8 text-primary-foreground" />

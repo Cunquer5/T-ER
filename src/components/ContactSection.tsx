@@ -6,7 +6,7 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 export default function ContactSection() {
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 animate-fade-in">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold mb-4">
           <span className="font-script text-leaf-green">Get in</span> Touch
@@ -19,7 +19,7 @@ export default function ContactSection() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Contact Form */}
-        <Card className="shadow-lg rounded-xl bg-gradient-to-br from-green-50 via-white to-leaf-green/20 border border-leaf-green/30">
+        <Card className="shadow-lg rounded-xl bg-gradient-to-br from-green-50 via-white to-leaf-green/20 border border-leaf-green/30 hover:shadow-card transition-all duration-300 hover:scale-[1.03]">
           <CardHeader>
             <CardTitle className="text-leaf-green text-xl font-bold mb-2 drop-shadow">Send us a Message</CardTitle>
           </CardHeader>
@@ -45,7 +45,7 @@ export default function ContactSection() {
             <Button type="submit" className="w-full bg-leaf-green text-white font-bold py-3 rounded-lg shadow hover:bg-primary transition-colors duration-200">Send Message</Button>
           </CardContent>
         </Card>
-        <Card className="shadow-lg rounded-xl bg-gradient-to-br from-green-50 via-white to-leaf-green/20 border border-leaf-green/30">
+        <Card className="shadow-lg rounded-xl bg-gradient-to-br from-green-50 via-white to-leaf-green/20 border border-leaf-green/30 hover:shadow-card transition-all duration-300 hover:scale-[1.03]">
           <CardContent className="p-8">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-14 h-14 bg-gradient-to-tr from-leaf-green to-primary rounded-full flex items-center justify-center shadow-md">
