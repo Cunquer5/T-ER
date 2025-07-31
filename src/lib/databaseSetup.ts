@@ -103,7 +103,9 @@ export const databaseSetup = {
         image: 'test-image.jpg',
         category: 'test',
         description: 'Test description',
-        quantity: 1
+        quantity: 1,
+        is_organic: false,
+        in_stock: true
       };
 
       console.log('Attempting to insert test item:', testItem);

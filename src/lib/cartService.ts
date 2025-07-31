@@ -69,7 +69,11 @@ export const cartService = {
         console.log('Inserting new cart item');
         // Insert new item
         const cartItemData = {
-          ...item, 
+          name: item.name,
+          price: item.price,
+          image: item.image,
+          category: item.category,
+          description: item.description,
           user_id: userId, 
           quantity,
           product_id: item.id,

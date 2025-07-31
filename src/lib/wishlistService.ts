@@ -57,14 +57,18 @@ export const wishlistService = {
       }
 
       console.log('Inserting new wishlist item');
-      // Insert new item
-      const wishlistItemData = {
-        ...item, 
-        user_id: userId,
-        product_id: item.id,
-        is_organic: item.is_organic || false,
-        in_stock: item.in_stock || true
-      };
+              // Insert new item
+        const wishlistItemData = {
+          name: item.name,
+          price: item.price,
+          image: item.image,
+          category: item.category,
+          description: item.description,
+          user_id: userId,
+          product_id: item.id,
+          is_organic: item.is_organic || false,
+          in_stock: item.in_stock || true
+        };
       console.log('Wishlist item data to insert:', wishlistItemData);
       
       const { error } = await supabase

@@ -33,7 +33,7 @@ const sampleProducts = [
   
   // Grains
   { id: "g1", name: "Rice Indrayani", price: 100, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80", category: "grains", description: "Premium Indrayani rice, perfect for daily cooking.", isOrganic: false, inStock: true },
-  { id: "g2", name: "Rice Indrayani Cut1", price: 40, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80",category: "grains", description: "Cut Indrayani rice, quick cooking variety.", isOrganic: false, inStock: true },
+  { id: "g2", name: "Rice Indrayani Cut", price: 40, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80",category: "grains", description: "Cut Indrayani rice, quick cooking variety.", isOrganic: false, inStock: true },
   { id: "g3", name: "Rice Indrayani Crushed", price: 40, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80", category: "grains", description: "Crushed Indrayani rice, ideal for rice dishes.", isOrganic: false, inStock: true },
   { id: "g4", name: "Rice Shakti Full", price: 100, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80", category: "grains", description: "Full grain Shakti rice, nutritious and filling.", isOrganic: false, inStock: true },
   { id: "g5", name: "Rice Shakti Cut", price: 60, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80", category: "grains", description: "Cut Shakti rice, faster cooking option.", isOrganic: false, inStock: true },
@@ -271,12 +271,20 @@ export const ProductsSection = () => {
 		) : (
 		  <>
 			{wishlistAlert && (
-			  <div className="fixed top-8 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-2 rounded shadow-lg z-50 transition-all">
+			  <div className={`fixed top-8 left-1/2 transform -translate-x-1/2 px-6 py-2 rounded shadow-lg z-50 transition-all ${
+				wishlistAlert.includes('Failed') || wishlistAlert.includes('Please login') 
+				  ? 'bg-red-600 text-white' 
+				  : 'bg-green-600 text-white'
+			  }`}>
 				{wishlistAlert}
 			  </div>
 			)}
 			{cartAlert && (
-			  <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-6 py-2 rounded shadow-lg z-50 transition-all">
+			  <div className={`fixed top-20 left-1/2 transform -translate-x-1/2 px-6 py-2 rounded shadow-lg z-50 transition-all ${
+				cartAlert.includes('Failed') || cartAlert.includes('Please login') 
+				  ? 'bg-red-600 text-white' 
+				  : 'bg-blue-600 text-white'
+			  }`}>
 				{cartAlert}
 			  </div>
 			)}
