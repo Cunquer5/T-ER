@@ -14,13 +14,112 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      cart_items: {
+        Row: {
+          id: string
+          user_id: string
+          product_id: string
+          name: string
+          price: number
+          image: string
+          category: string
+          description: string
+          quantity: number
+          is_organic: boolean
+          in_stock: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          product_id: string
+          name: string
+          price: number
+          image: string
+          category: string
+          description: string
+          quantity?: number
+          is_organic?: boolean
+          in_stock?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          product_id?: string
+          name?: string
+          price?: number
+          image?: string
+          category?: string
+          description?: string
+          quantity?: number
+          is_organic?: boolean
+          in_stock?: boolean
+          created_at?: string
+        }
+      }
+      wishlist_items: {
+        Row: {
+          id: string
+          user_id: string
+          product_id: string
+          name: string
+          price: number
+          image: string
+          category: string
+          description: string
+          is_organic: boolean
+          in_stock: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          product_id: string
+          name: string
+          price: number
+          image: string
+          category: string
+          description: string
+          is_organic?: boolean
+          in_stock?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          product_id?: string
+          name?: string
+          price?: number
+          image?: string
+          category?: string
+          description?: string
+          is_organic?: boolean
+          in_stock?: boolean
+          created_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_table_info: {
+        Args: {
+          table_name: string
+        }
+        Returns: {
+          table_name: string
+        }[]
+      }
+      create_cart_items_table: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      create_wishlist_items_table: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
