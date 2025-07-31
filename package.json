@@ -12,7 +12,9 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "setup-deployment": "node setup-deployment.js"
+    "setup-deployment": "node setup-deployment.js",
+    "test": "jest --config=jest.config.cjs",
+    "test:all": "powershell -File ./run-tests.ps1"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

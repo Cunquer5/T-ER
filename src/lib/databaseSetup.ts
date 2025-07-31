@@ -6,29 +6,46 @@ export const databaseSetup = {
     try {
       console.log('Checking database tables...');
       
-      // Try to query the tables to see if they exist
-      const { error: cartError } = await supabase
-        .from('cart_items')
-        .select('count')
-        .limit(1);
+      // Check if cart_items table exists
+      const { data: cartData, error: cartError } = await supabase
+        .rpc('get_table_info', { table_name: 'cart_items' });
       
-      const { error: wishlistError } = await supabase
-        .from('wishlist_items')
-        .select('count')
-        .limit(1);
+      // Check if wishlist_items table exists
+      const { data: wishlistData, error: wishlistError } = await supabase
+        .rpc('get_table_info', { table_name: 'wishlist_items' });
 
-      if (cartError && cartError.code === '42P01') { // Table doesn't exist
-        console.log('cart_items table does not exist. Please run the SQL setup script.');
-        return false;
+      let tablesCreated = true;
+
+      // Create cart_items table if it doesn't exist
+      if (!cartData || cartData.length === 0 || cartError) {
+        console.log('cart_items table does not exist. Creating table...');
+        const { error: createCartError } = await supabase
+          .rpc('create_cart_items_table');
+        
+        if (createCartError) {
+          console.error('Failed to create cart_items table:', createCartError);
+          tablesCreated = false;
+        }
       }
       
-      if (wishlistError && wishlistError.code === '42P01') { // Table doesn't exist
-        console.log('wishlist_items table does not exist. Please run the SQL setup script.');
-        return false;
+      // Create wishlist_items table if it doesn't exist
+      if (!wishlistData || wishlistData.length === 0 || wishlistError) {
+        console.log('wishlist_items table does not exist. Creating table...');
+        const { error: createWishlistError } = await supabase
+          .rpc('create_wishlist_items_table');
+        
+        if (createWishlistError) {
+          console.error('Failed to create wishlist_items table:', createWishlistError);
+          tablesCreated = false;
+        }
       }
 
-      console.log('Database tables exist and are accessible.');
-      return true;
+      if (tablesCreated) {
+        console.log('Database tables exist and are accessible.');
+        return true;
+      } else {
+        return false;
+      }
     } catch (error) {
       console.error('Error checking database tables:', error);
       return false;
@@ -144,4 +161,4 @@ export const databaseSetup = {
       return false;
     }
   }
-}; 
+};
