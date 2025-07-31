@@ -70,10 +70,7 @@ describe('cartService', () => {
 
     it('should return empty array when error occurs', async () => {
       // Mock the Supabase response with an error
-      (supabase.from as jest.Mock).mockReturnThis();
-      (supabase.select as jest.Mock).mockReturnThis();
-      (supabase.eq as jest.Mock).mockReturnThis();
-      (supabase as any).mockResolvedValue({
+      (mockQueryBuilder as any).mockResolvedValue({
         data: null,
         error: { message: 'Error fetching cart items' },
       });
@@ -81,8 +78,8 @@ describe('cartService', () => {
       const result = await cartService.getCartItems(mockUserId);
 
       expect(supabase.from).toHaveBeenCalledWith('cart_items');
-      expect(supabase.select).toHaveBeenCalledWith('*');
-      expect(supabase.eq).toHaveBeenCalledWith('user_id', mockUserId);
+      expect(mockQueryBuilder.select).toHaveBeenCalledWith('*');
+      expect(mockQueryBuilder.eq).toHaveBeenCalledWith('user_id', mockUserId);
       expect(result).toEqual([]);
     });
   });
