@@ -121,7 +121,7 @@ export default function NavBar({ onCartClick }: NavBarProps) {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               aria-label="Scroll to top"
             >
-              FarmFresh
+              Nareshwadi Products
             </button>
           </div>
           <button
@@ -160,7 +160,11 @@ export default function NavBar({ onCartClick }: NavBarProps) {
               </span>
             )}
           </Link>
-          <Link to="/orders" className="hover:underline flex items-center gap-1"><List className="h-4 w-4" /> Orders</Link>
+          {(user || isLoggedIn) && (
+            <Link to="/orders" className="hover:underline flex items-center gap-1">
+              <List className="h-4 w-4" /> Orders
+            </Link>
+          )}
           <button type="button" onClick={onCartClick} className="hover:underline flex items-center gap-1 relative bg-transparent border-none outline-none cursor-pointer">
             <ShoppingCart className="h-4 w-4" />
             Cart
